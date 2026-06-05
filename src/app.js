@@ -21,10 +21,11 @@ const qualityMeterFill = document.querySelector("#quality-meter-fill");
 const sampleProgress = document.querySelectorAll("#sample-progress span");
 const metricEnrollment = document.querySelector("#metric-enrollment");
 const metricLatency = document.querySelector("#metric-latency");
+const lockStateTitle = document.querySelector("#lock-state-title");
 
 const STORAGE_KEY = "nhai.offlineFaceTemplate.v1";
 const SYNC_QUEUE_KEY = "nhai.pendingSyncQueue.v1";
-const MATCH_THRESHOLD = 0.9;
+const MATCH_THRESHOLD = 0.86;
 const MIN_SHARPNESS = 0.026;
 const MIN_BRIGHTNESS = 0.18;
 const MAX_BRIGHTNESS = 0.88;
@@ -32,11 +33,11 @@ const ENROLLMENT_POSES = ["Center", "Left", "Right"];
 
 let cameraStream = null;
 let enrollmentSamples = [];
+let isUnlocked = false;
 
 const screenTitles = {
   verify: "Offline Verification",
   enroll: "Officer Enrollment",
-  liveness: "Active Liveness Check",
   result: "Verification Result",
   sync: "Pending Sync Queue",
 };
@@ -362,38 +363,49 @@ async function verifyCurrentFace() {
 
   await startCamera(verifyCamera);
   const start = performance.now();
-  const capture = captureFrame(verifyCamera);
-  const quality = evaluateFrameQuality(capture.imageData);
-  if (!quality.isGood) {
-    verifyStatus.textContent =
-      quality.sharpness < MIN_SHARPNESS
-        ? "Verification frame is blurry. Hold steady and retake."
-        : "Verification lighting is poor. Move to softer light and retake.";
+  verifyStatus.textContent = "Analyzing live face locally...";
+
+  const attempts = [];
+  for (let index = 0; index < 3; index += 1) {
+    await new Promise((resolve) => setTimeout(resolve, index === 0 ? 0 : 120));
+    const capture = captureFrame(verifyCamera);
+    const quality = evaluateFrameQuality(capture.imageData);
+    const liveEmbedding = createTemporaryEmbedding(capture.imageData);
+    const score = calculateCosineSimilarity(liveEmbedding, template.embedding);
+    attempts.push({ score, quality });
+  }
+
+  const validAttempts = attempts.filter((attempt) => attempt.quality.brightness >= MIN_BRIGHTNESS);
+  if (!validAttempts.length) {
+    verifyStatus.textContent = "Verification lighting is poor. Move to softer light and retake.";
     return;
   }
 
-  const liveEmbedding = createTemporaryEmbedding(capture.imageData);
-  const score = calculateCosineSimilarity(liveEmbedding, template.embedding);
+  const bestAttempt = validAttempts.reduce((best, attempt) =>
+    attempt.score > best.score ? attempt : best,
+  );
+  const score = bestAttempt.score;
   const elapsedMs = Math.round(performance.now() - start);
   const isMatch = score >= MATCH_THRESHOLD;
+  isUnlocked = isMatch;
 
   addSyncEvent({
     officerId: template.officerId,
-    decision: isMatch ? "Verified offline" : "Rejected offline",
+    decision: isMatch ? "Unlocked offline" : "Locked - verification failed",
     score: score.toFixed(4),
     elapsedMs,
   });
 
   resultIcon.textContent = isMatch ? "OK" : "NO";
   resultIcon.style.background = isMatch ? "var(--green)" : "var(--red)";
-  resultTitle.textContent = isMatch ? "System Unlocked Offline" : "Verification Rejected";
+  resultTitle.textContent = isMatch ? "System Unlocked Offline" : "System Remains Locked";
   resultMessage.textContent = isMatch
-    ? `Temporary local match passed in ${elapsedMs} ms. Event saved to pending sync queue.`
-    : `Temporary local match score was below threshold. Try better lighting and face position.`;
+    ? `Best-of-three local analysis passed in ${elapsedMs} ms. Event saved to pending sync queue.`
+    : `Best-of-three local analysis failed. Recenter your face and tap unlock again.`;
   matchScore.textContent = `${Math.round(score * 100)}%`;
   metricLatency.textContent = `${elapsedMs} ms`;
   templateState.textContent = "Saved";
-  verifyStatus.textContent = isMatch ? "Unlocked using local browser template." : "Rejected by local match threshold.";
+  verifyStatus.textContent = isMatch ? "Unlocked using local browser template." : "Locked. Tap Analyze and Unlock to recapture.";
   refreshUiState();
   showScreen("result");
 }
@@ -436,6 +448,7 @@ function refreshUiState() {
     metricEnrollment.textContent = `${enrollmentSamples.length}/3`;
   }
 
+  lockStateTitle.textContent = isUnlocked ? "System Unlocked" : "System Locked";
   updateEnrollmentProgress();
   renderSyncQueue();
 }

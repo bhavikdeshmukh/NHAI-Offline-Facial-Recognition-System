@@ -50,7 +50,7 @@ Current phone-demo flow:
 6. If the frame is blurry or lighting is poor, the app asks you to retake.
 7. Open Verify.
 8. Start camera.
-9. Capture and unlock.
+9. Tap Analyze and Unlock to recapture and unlock.
 10. Open Sync Queue to show the locally queued event.
 11. Tap Simulate Online Sync to show offline-to-online recovery.
 

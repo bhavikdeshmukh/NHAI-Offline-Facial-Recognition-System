@@ -95,8 +95,10 @@ Recommended demo video order:
 2. Open live demo.
 3. Enroll with center, left, and right samples.
 4. Show blur/quality gate if possible.
-5. Verify offline and unlock.
-6. Open sync queue.
-7. Tap simulated online sync.
-8. Show evidence folders and benchmark CSVs.
-9. State clearly that final recognition target is MobileFaceNet INT8.
+5. Show the system locked.
+6. Tap Analyze and Unlock.
+7. Show the system unlocks in under a second.
+8. Open sync queue.
+9. Tap simulated online sync.
+10. Show evidence folders and benchmark CSVs.
+11. State clearly that final recognition target is MobileFaceNet INT8 and liveness is part of the native model pipeline.

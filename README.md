@@ -32,7 +32,7 @@ Open `index.html` in a browser to view the current offline verification prototyp
 1. Offline verification dashboard
 2. Officer enrollment using the device camera
 3. Local browser-cache template storage
-4. Offline unlock using cosine similarity
+4. Locked verification screen with analyze-and-unlock recapture
 5. Pending Datalake 3.0 sync queue
 
 The same static demo can be deployed on GitHub Pages or Vercel. No backend server is required for the presentation prototype.
@@ -124,6 +124,8 @@ The first face-crop baseline is also available under `assets/evidence/face_detec
 The browser demo can capture a live camera frame, save a local enrollment template in browser storage, and verify a new camera capture offline. It uses a temporary deterministic 128-number vector only to validate the offline cosine-similarity flow. It is not real recognition accuracy and will be replaced by MobileFaceNet INT8 for final recognition.
 
 Enrollment requires three usable samples: center, left, and right. Blurry or poorly lit frames are rejected before the local template is saved.
+
+The separate liveness screen was removed from the web demo to keep the presentation focused on the working lock/unlock flow. Liveness remains in the final native pipeline design as FASNet passive anti-spoofing plus active challenge.
 
 Model choice, licensing notes, and expected model filenames are tracked in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
 

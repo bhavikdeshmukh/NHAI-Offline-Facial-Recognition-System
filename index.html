@@ -29,7 +29,6 @@
         <nav class="nav-tabs" aria-label="Demo steps">
           <button class="nav-tab active" data-step="verify">Verify</button>
           <button class="nav-tab" data-step="enroll">Enroll</button>
-          <button class="nav-tab" data-step="liveness">Liveness</button>
           <button class="nav-tab" data-step="result">Result</button>
           <button class="nav-tab" data-step="sync">Sync Queue</button>
         </nav>
@@ -83,7 +82,7 @@
           </div>
 
           <div class="side-panel">
-            <h3>Live Unlock</h3>
+            <h3 id="lock-state-title">System Locked</h3>
             <ul class="checklist" id="verify-checklist">
               <li><span></span> Camera ready</li>
               <li><span></span> Local template required</li>
@@ -91,7 +90,7 @@
               <li><span></span> Cosine match runs offline</li>
             </ul>
             <button class="primary-action" id="start-verify-camera">Start Camera</button>
-            <button class="secondary-action" id="capture-verification">Capture and Unlock</button>
+            <button class="secondary-action" id="capture-verification">Analyze and Unlock</button>
             <p class="inline-status" id="verify-status">Enroll once on this phone before unlocking.</p>
           </div>
         </section>
@@ -129,32 +128,6 @@
               <span>Right</span>
             </div>
             <p id="enroll-status">No local template saved yet.</p>
-          </div>
-        </section>
-
-        <section class="screen" id="liveness">
-          <div class="challenge-panel">
-            <p class="eyebrow">Randomized Active Liveness</p>
-            <h3>Turn your head slightly left</h3>
-            <div class="challenge-orbit">
-              <div class="face mini">
-                <span class="eye left"></span>
-                <span class="eye right"></span>
-                <span class="nose"></span>
-                <span class="mouth"></span>
-              </div>
-            </div>
-            <button class="primary-action" data-go="result">Complete Challenge</button>
-          </div>
-
-          <div class="side-panel">
-            <h3>Anti-Spoof Layers</h3>
-            <ul class="checklist">
-              <li><span></span> Passive texture check</li>
-              <li><span></span> Screen replay reflection check</li>
-              <li><span></span> Landmark movement verified</li>
-              <li><span></span> Challenge response matched</li>
-            </ul>
           </div>
         </section>
 
