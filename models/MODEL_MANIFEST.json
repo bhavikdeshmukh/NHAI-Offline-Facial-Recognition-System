@@ -1,0 +1,18 @@
+{
+  "recognition": {
+    "target": "MobileFaceNet",
+    "status": "pending_model_file",
+    "acceptedFiles": [
+      "models/mobilefacenet.tflite",
+      "models/mobilefacenet.onnx"
+    ],
+    "inputShape": [1, 112, 112, 3],
+    "expectedEmbeddingDims": [128, 192],
+    "notes": [
+      "Do not commit model weights until source and license are documented.",
+      "Temporary embeddings are only for pipeline plumbing.",
+      "Final threshold must be tuned from measured same-person and different-person pairs."
+    ]
+  }
+}
+

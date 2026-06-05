@@ -10,6 +10,7 @@ These scripts are not the mobile app. They are used to prepare evidence, convert
 - `create_sample_images.py`: creates synthetic lighting samples for a safe first test.
 - `face_crop_baseline.py`: creates a first face-detection/crop evidence flow using OpenCV Haar detection when available.
 - `embedding_baseline.py`: creates temporary 128-number embeddings from face crops to test cosine matching.
+- `mobilefacenet_inference.py`: runs a licensed MobileFaceNet `.tflite` or `.onnx` model when added.
 - `benchmark_pipeline.py`: records timing and model file-size measurements.
 
 ## Install Requirements

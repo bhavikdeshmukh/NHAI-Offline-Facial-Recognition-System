@@ -80,7 +80,9 @@ Important corrections:
 - [x] Add temporary 128-d embedding baseline
 - [x] Run temporary embedding match on real face crops
 - [x] Document that temporary embeddings are not real recognition accuracy
-- [ ] Choose MobileFaceNet source and license
+- [x] Add model card and model manifest
+- [x] Add MobileFaceNet inference entrypoint
+- [ ] Choose/download licensed MobileFaceNet source
 - [ ] Export/convert model to mobile format
 - [ ] Verify embedding shape
 - [x] Implement cosine similarity

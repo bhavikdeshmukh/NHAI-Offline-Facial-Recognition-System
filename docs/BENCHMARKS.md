@@ -95,7 +95,7 @@ The temporary embedding baseline validates the plumbing only: crop input, vector
 
 Pending recognition work:
 
-- Choose MobileFaceNet source and license
+- Choose/download licensed MobileFaceNet source
 - Convert/export to TFLite or ONNX
 - Compare real MobileFaceNet embeddings with cosine similarity
 - Tune real match threshold from data

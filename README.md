@@ -119,6 +119,8 @@ The first face-crop baseline is also available under `assets/evidence/face_detec
 
 The first embedding baseline uses a temporary deterministic 128-number vector only to validate the offline cosine-similarity flow. It is not real recognition accuracy and will be replaced by MobileFaceNet INT8 for final recognition.
 
+Model choice, licensing notes, and expected model filenames are tracked in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
+
 ## Repository Structure
 
 ```txt
