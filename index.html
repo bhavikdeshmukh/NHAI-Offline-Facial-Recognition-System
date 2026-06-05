@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NHAI Offline Facial Recognition Demo</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="System summary">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <div>
+            <p class="eyebrow">NHAI Hackathon 7.0</p>
+            <h1>Offline Face ID</h1>
+          </div>
+        </div>
+
+        <section class="status-panel" aria-label="Offline status">
+          <div class="status-row">
+            <span class="dot"></span>
+            <span>Offline Mode Active</span>
+          </div>
+          <strong>4 pending syncs</strong>
+          <p>Verification logs are encrypted locally and queued for Datalake 3.0.</p>
+        </section>
+
+        <nav class="nav-tabs" aria-label="Demo steps">
+          <button class="nav-tab active" data-step="verify">Verify</button>
+          <button class="nav-tab" data-step="enroll">Enroll</button>
+          <button class="nav-tab" data-step="liveness">Liveness</button>
+          <button class="nav-tab" data-step="result">Result</button>
+          <button class="nav-tab" data-step="sync">Sync Queue</button>
+        </nav>
+
+        <section class="metric-list" aria-label="Prototype metrics">
+          <div>
+            <span>Match latency</span>
+            <strong>482 ms</strong>
+          </div>
+          <div>
+            <span>Liveness score</span>
+            <strong>96.4%</strong>
+          </div>
+          <div>
+            <span>Model mode</span>
+            <strong>On-device</strong>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Field Verification Console</p>
+            <h2 id="screen-title">Offline Verification</h2>
+          </div>
+          <div class="network-pill">
+            <span class="signal"></span>
+            Zero-network zone
+          </div>
+        </header>
+
+        <section class="screen active" id="verify">
+          <div class="camera-stage">
+            <div class="road-visual" aria-hidden="true">
+              <div class="sun"></div>
+              <div class="lane"></div>
+              <div class="lane lane-two"></div>
+            </div>
+            <div class="face-frame">
+              <div class="scan-line"></div>
+              <div class="face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="nose"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <div class="capture-hint">Face centered | CLAHE correction active | Hold still</div>
+          </div>
+
+          <div class="side-panel">
+            <h3>Live Checks</h3>
+            <ul class="checklist">
+              <li><span></span> Single face detected</li>
+              <li><span></span> Lighting normalized</li>
+              <li><span></span> Embedding generated locally</li>
+              <li><span></span> Passive liveness passed</li>
+            </ul>
+            <button class="primary-action" data-go="liveness">Run Active Challenge</button>
+          </div>
+        </section>
+
+        <section class="screen" id="enroll">
+          <div class="form-panel">
+            <h3>Officer Enrollment</h3>
+            <label>
+              Officer ID
+              <input value="NHAI-FIELD-2048" />
+            </label>
+            <label>
+              Zone
+              <input value="Western Peripheral Corridor" />
+            </label>
+            <label>
+              Device Trust
+              <input value="Registered mobile device" />
+            </label>
+            <button class="primary-action" data-go="verify">Capture Enrollment Sample</button>
+          </div>
+
+          <div class="quality-panel">
+            <h3>Capture Quality</h3>
+            <div class="quality-meter">
+              <span style="width: 88%"></span>
+            </div>
+            <p>Good face quality after lighting normalization. Store encrypted embedding only.</p>
+          </div>
+        </section>
+
+        <section class="screen" id="liveness">
+          <div class="challenge-panel">
+            <p class="eyebrow">Randomized Active Liveness</p>
+            <h3>Turn your head slightly left</h3>
+            <div class="challenge-orbit">
+              <div class="face mini">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="nose"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <button class="primary-action" data-go="result">Complete Challenge</button>
+          </div>
+
+          <div class="side-panel">
+            <h3>Anti-Spoof Layers</h3>
+            <ul class="checklist">
+              <li><span></span> Passive texture check</li>
+              <li><span></span> Screen replay reflection check</li>
+              <li><span></span> Landmark movement verified</li>
+              <li><span></span> Challenge response matched</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="screen" id="result">
+          <div class="result-panel">
+            <div class="result-icon">OK</div>
+            <p class="eyebrow">Verification Complete</p>
+            <h3>Identity Verified Offline</h3>
+            <p>Face match, passive liveness, and active challenge passed. Event saved locally for later sync.</p>
+            <button class="primary-action" data-go="sync">View Pending Sync</button>
+          </div>
+
+          <div class="decision-grid">
+            <div><span>Face match</span><strong>98.1%</strong></div>
+            <div><span>Liveness</span><strong>96.4%</strong></div>
+            <div><span>Storage</span><strong>Encrypted</strong></div>
+            <div><span>Network</span><strong>Offline</strong></div>
+          </div>
+        </section>
+
+        <section class="screen" id="sync">
+          <div class="queue-panel">
+            <h3>Pending Datalake 3.0 Sync</h3>
+            <div class="queue-row">
+              <span>14:41</span>
+              <strong>NHAI-FIELD-2048</strong>
+              <em>Pending</em>
+            </div>
+            <div class="queue-row">
+              <span>14:38</span>
+              <strong>NHAI-FIELD-2031</strong>
+              <em>Pending</em>
+            </div>
+            <div class="queue-row">
+              <span>14:25</span>
+              <strong>Spoof attempt blocked</strong>
+              <em>Pending</em>
+            </div>
+            <button class="primary-action" data-go="verify">Return to Verify</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="src/app.js"></script>
+  </body>
+</html>

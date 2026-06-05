@@ -24,6 +24,16 @@ git clone https://github.com/bhavikdeshmukh/NHAI-Offline-Facial-Recognition-Syst
 cd "NHAI-Offline-Facial-Recognition-System"
 ```
 
+## Open Current Prototype
+
+The current demo is a static browser prototype. Open this file directly:
+
+```txt
+index.html
+```
+
+No dependency installation is required for the prototype.
+
 Install dependencies after the app scaffold is added:
 
 ```powershell
@@ -50,4 +60,3 @@ npm start
 ## Troubleshooting
 
 If folders do not appear after pulling from GitHub, make sure each empty folder has a `.gitkeep` file. Git tracks files, not empty folders.
-

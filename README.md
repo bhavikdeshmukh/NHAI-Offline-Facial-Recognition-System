@@ -25,6 +25,16 @@ The goal is not just face matching. The goal is reliable, explainable, and spoof
 | Pending sync queue | Stores events locally and syncs with Datalake 3.0 when network returns |
 | Explainability support | Grad-CAM style visual reasoning helps examiners trust model decisions |
 
+## Prototype Demo
+
+Open `index.html` in a browser to view the current offline verification prototype. It demonstrates the planned user flow:
+
+1. Offline verification dashboard
+2. Officer enrollment
+3. Active liveness challenge
+4. Verified result
+5. Pending Datalake 3.0 sync queue
+
 ## System Architecture
 
 ```mermaid
@@ -113,6 +123,8 @@ NHAI-Offline-Facial-Recognition-System/
 |   |-- components/
 |   |-- screens/
 |   |-- services/
+|   |-- app.js
+|   |-- styles.css
 |   `-- utils/
 |-- docs/
 |   |-- MASTER_PLAN.md
@@ -122,6 +134,7 @@ NHAI-Offline-Facial-Recognition-System/
 |   |-- architecture-diagram.png
 |   `-- demo.gif
 |-- .gitignore
+|-- index.html
 `-- README.md
 ```
 
@@ -140,6 +153,7 @@ NHAI-Offline-Facial-Recognition-System/
 - [x] Add project README
 - [x] Add master implementation plan
 - [x] Add architecture documentation
+- [x] Build browser demo prototype
 - [ ] Build mobile UI prototype
 - [ ] Implement face detection pipeline
 - [ ] Add CLAHE preprocessing
