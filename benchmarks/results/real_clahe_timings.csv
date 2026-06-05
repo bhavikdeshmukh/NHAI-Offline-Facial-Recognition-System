@@ -1,0 +1,4 @@
+sample,comparison,elapsed_ms
+real_face_01,assets/evidence/real_clahe/real_face_01_comparison.png,69.018
+real_face_02,assets/evidence/real_clahe/real_face_02_comparison.png,90.228
+real_face_03,assets/evidence/real_clahe/real_face_03_comparison.png,86.548

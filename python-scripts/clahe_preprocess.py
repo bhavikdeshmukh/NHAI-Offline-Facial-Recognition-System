@@ -58,16 +58,27 @@ def apply_clahe_luminance(
             x1 = min((tile_x + 1) * tile_w, width)
             row.append(_tile_lut(luminance[y0:y1, x0:x1], clip_limit))
         luts.append(row)
+    lut_grid = np.array(luts)
 
-    enhanced = np.empty_like(luminance)
-    for tile_y in range(tile_grid_size):
-        y0 = tile_y * tile_h
-        y1 = min((tile_y + 1) * tile_h, height)
-        for tile_x in range(tile_grid_size):
-            x0 = tile_x * tile_w
-            x1 = min((tile_x + 1) * tile_w, width)
-            tile = luminance[y0:y1, x0:x1]
-            enhanced[y0:y1, x0:x1] = luts[tile_y][tile_x][tile]
+    y_positions = np.arange(height, dtype=np.float32) / tile_h
+    x_positions = np.arange(width, dtype=np.float32) / tile_w
+    y_low = np.floor(y_positions).astype(np.int32)
+    x_low = np.floor(x_positions).astype(np.int32)
+    y_high = np.clip(y_low + 1, 0, tile_grid_size - 1)
+    x_high = np.clip(x_low + 1, 0, tile_grid_size - 1)
+    y_low = np.clip(y_low, 0, tile_grid_size - 1)
+    x_low = np.clip(x_low, 0, tile_grid_size - 1)
+    y_weight = (y_positions - y_low).reshape(height, 1)
+    x_weight = (x_positions - x_low).reshape(1, width)
+
+    top_left = lut_grid[y_low[:, None], x_low[None, :], luminance]
+    top_right = lut_grid[y_low[:, None], x_high[None, :], luminance]
+    bottom_left = lut_grid[y_high[:, None], x_low[None, :], luminance]
+    bottom_right = lut_grid[y_high[:, None], x_high[None, :], luminance]
+
+    top = (1 - x_weight) * top_left + x_weight * top_right
+    bottom = (1 - x_weight) * bottom_left + x_weight * bottom_right
+    enhanced = ((1 - y_weight) * top + y_weight * bottom).astype(np.uint8)
 
     enhanced_y = Image.fromarray(enhanced, mode="L")
     return Image.merge("YCbCr", (enhanced_y, cb_channel, cr_channel)).convert("RGB")

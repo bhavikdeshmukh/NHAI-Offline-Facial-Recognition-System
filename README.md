@@ -113,6 +113,8 @@ CLAHE preprocessing improves local contrast before recognition, making the face 
 
 Measured development results are tracked in [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md). Prototype numbers stay there until they are validated on real mobile hardware.
 
+Current evidence includes synthetic lighting samples and consented real-image CLAHE comparisons under `assets/evidence/`.
+
 ## Repository Structure
 
 ```txt

@@ -59,6 +59,7 @@ Important corrections:
 - [x] Run CLAHE before/after script
 - [x] Save before/after images under `assets/evidence/clahe/`
 - [x] Measure preprocessing time on synthetic samples
+- [x] Add consented real-image CLAHE comparison evidence
 - [ ] Decide final CLAHE parameters
 - [ ] Add evidence to final docs/presentation
 

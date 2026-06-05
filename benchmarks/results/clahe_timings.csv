@@ -1,6 +1,6 @@
 input,output,comparison,elapsed_ms
-samples\lighting\blur.png,assets\evidence\clahe\blur_clahe.png,assets\evidence\clahe\blur_comparison.png,4.952
-samples\lighting\deep_shadow.png,assets\evidence\clahe\deep_shadow_clahe.png,assets\evidence\clahe\deep_shadow_comparison.png,4.644
-samples\lighting\harsh_sun.png,assets\evidence\clahe\harsh_sun_clahe.png,assets\evidence\clahe\harsh_sun_comparison.png,4.536
-samples\lighting\low_light.png,assets\evidence\clahe\low_light_clahe.png,assets\evidence\clahe\low_light_comparison.png,4.99
-samples\lighting\normal.png,assets\evidence\clahe\normal_clahe.png,assets\evidence\clahe\normal_comparison.png,4.615
+samples\lighting\blur.png,assets\evidence\clahe\blur_clahe.png,assets\evidence\clahe\blur_comparison.png,17.08
+samples\lighting\deep_shadow.png,assets\evidence\clahe\deep_shadow_clahe.png,assets\evidence\clahe\deep_shadow_comparison.png,13.798
+samples\lighting\harsh_sun.png,assets\evidence\clahe\harsh_sun_clahe.png,assets\evidence\clahe\harsh_sun_comparison.png,16.932
+samples\lighting\low_light.png,assets\evidence\clahe\low_light_clahe.png,assets\evidence\clahe\low_light_comparison.png,14.665
+samples\lighting\normal.png,assets\evidence\clahe\normal_clahe.png,assets\evidence\clahe\normal_comparison.png,14.349

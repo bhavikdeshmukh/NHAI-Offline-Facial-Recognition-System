@@ -21,3 +21,8 @@ Thumbs.db
 .env
 .env.production
 .env.development
+
+# Private biometric test samples and generated private evidence
+samples/private/
+assets/evidence/private/
+benchmarks/results/private_*.csv
