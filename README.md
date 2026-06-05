@@ -115,6 +115,8 @@ Measured development results are tracked in [`docs/BENCHMARKS.md`](docs/BENCHMAR
 
 Current evidence includes synthetic lighting samples and consented real-image CLAHE comparisons under `assets/evidence/`.
 
+The first face-crop baseline is also available under `assets/evidence/face_detection_real/`; it is a temporary OpenCV desktop baseline before the final BlazeFace/SCRFD-lite mobile detector.
+
 ## Repository Structure
 
 ```txt

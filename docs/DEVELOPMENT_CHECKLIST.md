@@ -65,10 +65,11 @@ Important corrections:
 
 ## Phase D: Face Detection
 
-- [ ] Choose BlazeFace source and license
-- [ ] Test detection on sample images
-- [ ] Save cropped face outputs
+- [x] Add temporary OpenCV Haar baseline crop script
+- [x] Test detection on consented real images
+- [x] Save annotated face boxes and 112x112 cropped outputs
 - [ ] Compare failure cases
+- [ ] Choose BlazeFace source and license
 - [ ] Decide if SCRFD-lite comparison is needed
 - [ ] Record detection time and model size
 

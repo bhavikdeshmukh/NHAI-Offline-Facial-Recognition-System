@@ -26,3 +26,8 @@ Thumbs.db
 samples/private/
 assets/evidence/private/
 benchmarks/results/private_*.csv
+
+# Local Python dependency installs
+local-python-packages/
+__pycache__/
+*.pyc

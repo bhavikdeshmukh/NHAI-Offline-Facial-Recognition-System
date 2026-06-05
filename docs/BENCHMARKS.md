@@ -39,9 +39,30 @@ These are Python development script results, not final mobile runtime results. F
 
 ## Pending Benchmarks
 
-- BlazeFace/SCRFD-lite face detection model size and latency
 - FASNet/Silent-Face passive liveness model size and latency
 - MobileFaceNet FP32 vs INT8 model size and latency
 - End-to-end pipeline latency
 - Spoof rejection results
 - Offline sync queue behavior
+
+### Face Crop Baseline
+
+Initial real-image crop test:
+
+- 3 consented real photos provided by the project owner
+- Method: OpenCV Haar cascade desktop baseline
+- Output folder: `assets/evidence/face_detection_real/`
+- Timing CSV: `benchmarks/results/face_crop_baseline_real.csv`
+
+Measured result:
+
+- 3 of 3 images produced face candidates
+- Outputs include annotated source image, 112x112 face crop, and 112x112 CLAHE-normalized face crop
+- Warmed OpenCV Haar baseline latency on the 3 real test images: about 14.27 ms average
+- This is a development baseline only. Final mobile detector should be BlazeFace or SCRFD-lite.
+
+Pending detector work:
+
+- BlazeFace/SCRFD-lite model source and license
+- Mobile detector size and latency
+- Failure cases for side pose, glasses, backlight, blur, and multiple faces

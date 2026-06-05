@@ -1,0 +1,4 @@
+sample,status,method,box,annotated,crop,clahe_crop,elapsed_ms
+real_face_01,face_candidate,opencv_haar,"83,243,680,840",assets\evidence\face_detection_real\real_face_01_annotated.png,assets\evidence\face_detection_real\real_face_01_crop_112.png,assets\evidence\face_detection_real\real_face_01_crop_112_clahe.png,15.26
+real_face_02,face_candidate,opencv_haar,"235,161,705,631",assets\evidence\face_detection_real\real_face_02_annotated.png,assets\evidence\face_detection_real\real_face_02_crop_112.png,assets\evidence\face_detection_real\real_face_02_crop_112_clahe.png,14.174
+real_face_03,face_candidate,opencv_haar,"150,247,764,861",assets\evidence\face_detection_real\real_face_03_annotated.png,assets\evidence\face_detection_real\real_face_03_crop_112.png,assets\evidence\face_detection_real\real_face_03_crop_112_clahe.png,13.368
