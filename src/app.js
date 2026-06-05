@@ -77,6 +77,17 @@ function setSyncQueue(rows) {
   localStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(rows));
 }
 
+function simulateOnlineSync() {
+  const queue = getSyncQueue();
+  const syncedQueue = queue.map((row) => ({
+    ...row,
+    status: "Synced",
+    syncedAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+  }));
+  setSyncQueue(syncedQueue);
+  renderSyncQueue();
+}
+
 function addSyncEvent(event) {
   const queue = getSyncQueue();
   queue.unshift({
@@ -369,7 +380,8 @@ async function verifyCurrentFace() {
 
 function renderSyncQueue() {
   const queue = getSyncQueue();
-  pendingSyncCount.textContent = `${queue.length} pending sync${queue.length === 1 ? "" : "s"}`;
+  const pendingCount = queue.filter((row) => row.status !== "Synced").length;
+  pendingSyncCount.textContent = `${pendingCount} pending sync${pendingCount === 1 ? "" : "s"}`;
 
   if (!queue.length) {
     syncQueueList.innerHTML = '<p class="inline-status">No pending local events yet.</p>';
@@ -381,7 +393,7 @@ function renderSyncQueue() {
       (row) => `
         <div class="queue-row">
           <span>${row.timestamp}</span>
-          <strong>${row.decision}<br><small>${row.score} | ${row.elapsedMs} ms</small></strong>
+          <strong>${row.decision}<br><small>${row.score} | ${row.elapsedMs} ms${row.syncedAt ? ` | synced ${row.syncedAt}` : ""}</small></strong>
           <em>${row.status}</em>
         </div>
       `,
@@ -454,6 +466,10 @@ document.querySelector("#clear-enrollment").addEventListener("click", () => {
   clearStoredTemplate();
   enrollStatus.textContent = "Local template cleared.";
   refreshUiState();
+});
+
+document.querySelector("#sync-now").addEventListener("click", () => {
+  simulateOnlineSync();
 });
 
 refreshUiState();

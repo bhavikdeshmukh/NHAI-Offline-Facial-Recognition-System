@@ -35,6 +35,8 @@ Open `index.html` in a browser to view the current offline verification prototyp
 4. Offline unlock using cosine similarity
 5. Pending Datalake 3.0 sync queue
 
+The same static demo can be deployed on GitHub Pages or Vercel. No backend server is required for the presentation prototype.
+
 ## System Architecture
 
 ```mermaid
@@ -123,6 +125,8 @@ Enrollment requires three usable samples: center, left, and right. Blurry or poo
 
 Model choice, licensing notes, and expected model filenames are tracked in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
 
+The final hackathon scoring map is available in [`docs/FINAL_EVALUATION_MAP.md`](docs/FINAL_EVALUATION_MAP.md).
+
 ## Repository Structure
 
 ```txt
@@ -146,6 +150,7 @@ NHAI-Offline-Facial-Recognition-System/
 |   |-- ARCHITECTURE.md
 |   |-- BENCHMARKS.md
 |   |-- DEVELOPMENT_CHECKLIST.md
+|   |-- FINAL_EVALUATION_MAP.md
 |   `-- SETUP.md
 |-- assets/
 |   |-- evidence/

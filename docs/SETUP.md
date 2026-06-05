@@ -36,6 +36,8 @@ No dependency installation is required for the prototype.
 
 For phone camera testing, open the GitHub Pages HTTPS URL on the phone. Browser camera access usually requires HTTPS or localhost.
 
+Vercel can also host the same static prototype. Import the GitHub repository in Vercel and keep the default static settings. The included `vercel.json` sets a camera permission policy header for the demo.
+
 Current phone-demo flow:
 
 1. Open Enroll.
@@ -48,6 +50,7 @@ Current phone-demo flow:
 8. Start camera.
 9. Capture and unlock.
 10. Open Sync Queue to show the locally queued event.
+11. Tap Simulate Online Sync to show offline-to-online recovery.
 
 The local enrollment is saved in browser storage on that phone. Clearing browser site data removes it.
 
