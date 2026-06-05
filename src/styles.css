@@ -400,6 +400,34 @@ h3 {
   cursor: pointer;
 }
 
+.secondary-action,
+.danger-action {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 10px;
+  border-radius: 7px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondary-action {
+  color: var(--blue);
+  border: 1px solid rgba(20, 87, 168, 0.32);
+  background: #eef5ff;
+}
+
+.danger-action {
+  color: var(--red);
+  border: 1px solid rgba(201, 77, 63, 0.28);
+  background: #fff2f0;
+}
+
+.inline-status {
+  margin: 14px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 .form-panel label {
   display: grid;
   gap: 8px;
@@ -428,6 +456,60 @@ input {
   display: block;
   height: 100%;
   background: var(--green);
+}
+
+.camera-feed,
+.enroll-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #0c1723;
+}
+
+.camera-feed {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
+.camera-stage.camera-on .camera-feed {
+  opacity: 1;
+}
+
+.camera-stage.camera-on .road-visual,
+.camera-stage.camera-on .face {
+  opacity: 0;
+}
+
+.camera-stage.camera-on .face-frame {
+  z-index: 2;
+  background: transparent;
+}
+
+.camera-stage.camera-on .capture-hint {
+  z-index: 3;
+}
+
+.enroll-feed,
+.stored-preview {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  background: #10233a;
+}
+
+.stored-preview {
+  display: none;
+}
+
+.stored-preview.visible {
+  display: block;
 }
 
 .challenge-panel,

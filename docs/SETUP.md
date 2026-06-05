@@ -34,6 +34,20 @@ index.html
 
 No dependency installation is required for the prototype.
 
+For phone camera testing, open the GitHub Pages HTTPS URL on the phone. Browser camera access usually requires HTTPS or localhost.
+
+Current phone-demo flow:
+
+1. Open Enroll.
+2. Start camera.
+3. Save local enrollment.
+4. Open Verify.
+5. Start camera.
+6. Capture and unlock.
+7. Open Sync Queue to show the locally queued event.
+
+The local enrollment is saved in browser storage on that phone. Clearing browser site data removes it.
+
 Install dependencies after the app scaffold is added:
 
 ```powershell

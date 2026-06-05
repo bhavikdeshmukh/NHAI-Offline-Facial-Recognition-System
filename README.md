@@ -30,9 +30,9 @@ The goal is not just face matching. The goal is reliable, explainable, and spoof
 Open `index.html` in a browser to view the current offline verification prototype. It demonstrates the planned user flow:
 
 1. Offline verification dashboard
-2. Officer enrollment
-3. Active liveness challenge
-4. Verified result
+2. Officer enrollment using the device camera
+3. Local browser-cache template storage
+4. Offline unlock using cosine similarity
 5. Pending Datalake 3.0 sync queue
 
 ## System Architecture
@@ -117,7 +117,7 @@ Current evidence includes synthetic lighting samples and consented real-image CL
 
 The first face-crop baseline is also available under `assets/evidence/face_detection_real/`; it is a temporary OpenCV desktop baseline before the final BlazeFace/SCRFD-lite mobile detector.
 
-The first embedding baseline uses a temporary deterministic 128-number vector only to validate the offline cosine-similarity flow. It is not real recognition accuracy and will be replaced by MobileFaceNet INT8 for final recognition.
+The browser demo can capture a live camera frame, save a local enrollment template in browser storage, and verify a new camera capture offline. It uses a temporary deterministic 128-number vector only to validate the offline cosine-similarity flow. It is not real recognition accuracy and will be replaced by MobileFaceNet INT8 for final recognition.
 
 Model choice, licensing notes, and expected model filenames are tracked in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
 

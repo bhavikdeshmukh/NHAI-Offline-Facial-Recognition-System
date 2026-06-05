@@ -102,8 +102,11 @@ Important corrections:
 ## Phase G: Mobile/App Implementation
 
 - [ ] Decide React Native setup approach
-- [ ] Add camera capture screen
-- [ ] Add enrollment screen
+- [x] Add browser camera capture prototype
+- [x] Add browser local enrollment storage
+- [x] Add browser offline unlock flow
+- [ ] Add native mobile camera capture screen
+- [ ] Add native mobile enrollment screen
 - [ ] Add liveness challenge screen
 - [ ] Add verification result screen
 - [ ] Add pending sync queue screen

@@ -22,8 +22,8 @@
             <span class="dot"></span>
             <span>Offline Mode Active</span>
           </div>
-          <strong>4 pending syncs</strong>
-          <p>Verification logs are encrypted locally and queued for Datalake 3.0.</p>
+          <strong id="pending-sync-count">0 pending syncs</strong>
+          <p>Verification logs are stored in this browser and queued for Datalake 3.0.</p>
         </section>
 
         <nav class="nav-tabs" aria-label="Demo steps">
@@ -69,6 +69,7 @@
               <div class="lane"></div>
               <div class="lane lane-two"></div>
             </div>
+            <video class="camera-feed" id="verify-camera" autoplay playsinline muted></video>
             <div class="face-frame">
               <div class="scan-line"></div>
               <div class="face">
@@ -82,14 +83,16 @@
           </div>
 
           <div class="side-panel">
-            <h3>Live Checks</h3>
-            <ul class="checklist">
-              <li><span></span> Single face detected</li>
-              <li><span></span> Lighting normalized</li>
-              <li><span></span> Embedding generated locally</li>
-              <li><span></span> Passive liveness passed</li>
+            <h3>Live Unlock</h3>
+            <ul class="checklist" id="verify-checklist">
+              <li><span></span> Camera ready</li>
+              <li><span></span> Local template required</li>
+              <li><span></span> Temporary embedding generated in browser</li>
+              <li><span></span> Cosine match runs offline</li>
             </ul>
-            <button class="primary-action" data-go="liveness">Run Active Challenge</button>
+            <button class="primary-action" id="start-verify-camera">Start Camera</button>
+            <button class="secondary-action" id="capture-verification">Capture and Unlock</button>
+            <p class="inline-status" id="verify-status">Enroll once on this phone before unlocking.</p>
           </div>
         </section>
 
@@ -108,15 +111,19 @@
               Device Trust
               <input value="Registered mobile device" />
             </label>
-            <button class="primary-action" data-go="verify">Capture Enrollment Sample</button>
+            <button class="primary-action" id="start-enroll-camera">Start Camera</button>
+            <button class="secondary-action" id="capture-enrollment">Save Local Enrollment</button>
+            <button class="danger-action" id="clear-enrollment">Clear Local Template</button>
           </div>
 
           <div class="quality-panel">
             <h3>Capture Quality</h3>
+            <video class="enroll-feed" id="enroll-camera" autoplay playsinline muted></video>
+            <img class="stored-preview" id="stored-preview" alt="Stored enrollment preview" />
             <div class="quality-meter">
               <span style="width: 88%"></span>
             </div>
-            <p>Good face quality after lighting normalization. Store encrypted embedding only.</p>
+            <p id="enroll-status">No local template saved yet.</p>
           </div>
         </section>
 
@@ -148,17 +155,17 @@
 
         <section class="screen" id="result">
           <div class="result-panel">
-            <div class="result-icon">OK</div>
+            <div class="result-icon" id="result-icon">OK</div>
             <p class="eyebrow">Verification Complete</p>
-            <h3>Identity Verified Offline</h3>
-            <p>Face match, passive liveness, and active challenge passed. Event saved locally for later sync.</p>
+            <h3 id="result-title">Identity Verified Offline</h3>
+            <p id="result-message">Face match passed. Event saved locally for later sync.</p>
             <button class="primary-action" data-go="sync">View Pending Sync</button>
           </div>
 
           <div class="decision-grid">
-            <div><span>Face match</span><strong>98.1%</strong></div>
-            <div><span>Liveness</span><strong>96.4%</strong></div>
-            <div><span>Storage</span><strong>Encrypted</strong></div>
+            <div><span>Face match</span><strong id="match-score">Not run</strong></div>
+            <div><span>Template</span><strong id="template-state">Local</strong></div>
+            <div><span>Storage</span><strong>Browser cache</strong></div>
             <div><span>Network</span><strong>Offline</strong></div>
           </div>
         </section>
@@ -166,21 +173,7 @@
         <section class="screen" id="sync">
           <div class="queue-panel">
             <h3>Pending Datalake 3.0 Sync</h3>
-            <div class="queue-row">
-              <span>14:41</span>
-              <strong>NHAI-FIELD-2048</strong>
-              <em>Pending</em>
-            </div>
-            <div class="queue-row">
-              <span>14:38</span>
-              <strong>NHAI-FIELD-2031</strong>
-              <em>Pending</em>
-            </div>
-            <div class="queue-row">
-              <span>14:25</span>
-              <strong>Spoof attempt blocked</strong>
-              <em>Pending</em>
-            </div>
+            <div id="sync-queue-list"></div>
             <button class="primary-action" data-go="verify">Return to Verify</button>
           </div>
         </section>
