@@ -595,6 +595,14 @@ input {
   background: #fff;
 }
 
+.decision-pass {
+  color: var(--green);
+}
+
+.decision-fail {
+  color: var(--red);
+}
+
 .queue-row {
   display: grid;
   grid-template-columns: 70px 1fr 90px;
@@ -611,6 +619,10 @@ input {
   color: var(--red);
   font-style: normal;
   font-weight: 800;
+}
+
+.queue-row em.synced {
+  color: var(--green);
 }
 
 @media (max-width: 900px) {

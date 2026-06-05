@@ -12,8 +12,10 @@ const storedPreview = document.querySelector("#stored-preview");
 const pendingSyncCount = document.querySelector("#pending-sync-count");
 const syncQueueList = document.querySelector("#sync-queue-list");
 const resultIcon = document.querySelector("#result-icon");
+const resultEyebrow = document.querySelector("#result-eyebrow");
 const resultTitle = document.querySelector("#result-title");
 const resultMessage = document.querySelector("#result-message");
+const unlockDecision = document.querySelector("#unlock-decision");
 const matchScore = document.querySelector("#match-score");
 const templateState = document.querySelector("#template-state");
 const captureEnrollmentButton = document.querySelector("#capture-enrollment");
@@ -398,14 +400,19 @@ async function verifyCurrentFace() {
 
   resultIcon.textContent = isMatch ? "OK" : "NO";
   resultIcon.style.background = isMatch ? "var(--green)" : "var(--red)";
-  resultTitle.textContent = isMatch ? "System Unlocked Offline" : "System Remains Locked";
+  resultEyebrow.textContent = isMatch ? "Face ID Accepted" : "Face ID Rejected";
+  resultTitle.textContent = isMatch ? "App Unlocked" : "Face ID Not Matched";
   resultMessage.textContent = isMatch
-    ? `Best-of-three local analysis passed in ${elapsedMs} ms. Event saved to pending sync queue.`
-    : `Best-of-three local analysis failed. Recenter your face and tap unlock again.`;
-  matchScore.textContent = `${Math.round(score * 100)}%`;
+    ? `Access granted in ${elapsedMs} ms. The verification ran offline and the audit log was queued separately for Datalake 3.0.`
+    : `Access denied. The offline cosine match did not cross the ${Math.round(MATCH_THRESHOLD * 100)}% threshold. Recenter your face and unlock again.`;
+  unlockDecision.textContent = isMatch ? "Unlocked" : "Locked";
+  unlockDecision.className = isMatch ? "decision-pass" : "decision-fail";
+  matchScore.textContent = `${Math.round(score * 100)}% ${isMatch ? "correct" : "not matched"}`;
   metricLatency.textContent = `${elapsedMs} ms`;
   templateState.textContent = "Saved";
-  verifyStatus.textContent = isMatch ? "Unlocked using local browser template." : "Locked. Tap Analyze and Unlock to recapture.";
+  verifyStatus.textContent = isMatch
+    ? "App unlocked. Face ID accepted by local template."
+    : "App locked. Face ID not matched; tap Analyze and Unlock to recapture.";
   refreshUiState();
   showScreen("result");
 }
@@ -426,7 +433,7 @@ function renderSyncQueue() {
         <div class="queue-row">
           <span>${row.timestamp}</span>
           <strong>${row.decision}<br><small>${row.score} | ${row.elapsedMs} ms${row.syncedAt ? ` | synced ${row.syncedAt}` : ""}</small></strong>
-          <em>${row.status}</em>
+          <em class="${row.status === "Synced" ? "synced" : "pending"}">${row.status}</em>
         </div>
       `,
     )
@@ -449,6 +456,10 @@ function refreshUiState() {
   }
 
   lockStateTitle.textContent = isUnlocked ? "System Unlocked" : "System Locked";
+  if (!isUnlocked && unlockDecision.textContent === "Unlocked") {
+    unlockDecision.textContent = "Locked";
+    unlockDecision.className = "decision-fail";
+  }
   updateEnrollmentProgress();
   renderSyncQueue();
 }
@@ -497,8 +508,16 @@ document.querySelector("#capture-verification").addEventListener("click", async 
 
 document.querySelector("#clear-enrollment").addEventListener("click", () => {
   clearStoredTemplate();
+  isUnlocked = false;
   enrollStatus.textContent = "Local template cleared.";
   refreshUiState();
+});
+
+document.querySelector("#lock-and-retry").addEventListener("click", () => {
+  isUnlocked = false;
+  verifyStatus.textContent = "System locked. Capture your face to unlock again.";
+  refreshUiState();
+  showScreen("verify");
 });
 
 document.querySelector("#sync-now").addEventListener("click", async () => {

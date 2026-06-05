@@ -134,13 +134,15 @@
         <section class="screen" id="result">
           <div class="result-panel">
             <div class="result-icon" id="result-icon">OK</div>
-            <p class="eyebrow">Verification Complete</p>
-            <h3 id="result-title">Identity Verified Offline</h3>
-            <p id="result-message">Face match passed. Event saved locally for later sync.</p>
-            <button class="primary-action" data-go="sync">View Pending Sync</button>
+            <p class="eyebrow" id="result-eyebrow">Face ID Decision</p>
+            <h3 id="result-title">Ready to Verify</h3>
+            <p id="result-message">Capture your face to unlock this offline demo.</p>
+            <button class="primary-action" id="lock-and-retry">Lock and Verify Again</button>
+            <button class="secondary-action" data-go="sync">View Sync Details</button>
           </div>
 
           <div class="decision-grid">
+            <div><span>Unlock decision</span><strong id="unlock-decision">Locked</strong></div>
             <div><span>Face match</span><strong id="match-score">Not run</strong></div>
             <div><span>Template</span><strong id="template-state">Local</strong></div>
             <div><span>Storage</span><strong>Browser cache</strong></div>
@@ -150,7 +152,8 @@
 
         <section class="screen" id="sync">
           <div class="queue-panel">
-            <h3>Pending Datalake 3.0 Sync</h3>
+            <h3>Offline Sync Details</h3>
+            <p class="inline-status">Face ID unlock is already decided on-device. These rows are only queued audit logs for Datalake 3.0.</p>
             <div id="sync-queue-list"></div>
             <button class="secondary-action" id="sync-now">Simulate Online Sync</button>
             <button class="primary-action" data-go="verify">Return to Verify</button>
