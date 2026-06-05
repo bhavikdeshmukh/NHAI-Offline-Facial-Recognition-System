@@ -155,6 +155,7 @@ NHAI-Offline-Facial-Recognition-System/
 |   |-- BENCHMARKS.md
 |   |-- DEVELOPMENT_CHECKLIST.md
 |   |-- FINAL_EVALUATION_MAP.md
+|   |-- SUBMISSION_PROPOSAL.md
 |   `-- SETUP.md
 |-- assets/
 |   |-- evidence/

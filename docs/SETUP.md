@@ -2,7 +2,9 @@
 
 ## Current Status
 
-This repository is currently in the planning and scaffolding stage. The documentation, folder structure, and architecture are being prepared first so the implementation can be built cleanly.
+This repository contains a submission-ready browser prototype and supporting technical documentation for the NHAI Hackathon 7.0 offline facial recognition challenge.
+
+The browser prototype demonstrates the complete offline workflow: camera-based enrollment, three-sample local template creation, offline unlock verification, local audit logging, and simulated Datalake 3.0 sync recovery. The final native production path is documented for React Native integration using MobileFaceNet INT8, passive liveness, active liveness, encrypted SQLite storage, and an offline-to-online sync/purge mechanism.
 
 ## Requirements
 
@@ -68,16 +70,16 @@ Run the mobile app after the React Native or Expo setup is added:
 npm start
 ```
 
-## Planned Development Workflow
+## Native React Native Implementation Path
 
-1. Build UI screens first.
-2. Add local mock verification flow.
-3. Add camera capture.
-4. Add preprocessing and face embedding model.
-5. Add liveness detection.
-6. Add encrypted local storage.
-7. Add offline sync queue.
-8. Record final demo.
+1. Replace browser camera access with `react-native-vision-camera`.
+2. Move CLAHE preprocessing into a native frame processor or OpenCV bridge.
+3. Add BlazeFace or SCRFD-lite for face detection and aligned 112x112 crops.
+4. Replace the temporary browser embedding with `mobilefacenet_int8.tflite`.
+5. Add passive anti-spoofing with a lightweight FASNet/Silent-Face style model.
+6. Add an active challenge prompt such as blink, head turn, or smile.
+7. Store embeddings and verification logs in encrypted SQLite.
+8. Sync queued logs to Datalake 3.0/AWS after network recovery and purge synced records by retention policy.
 
 ## Troubleshooting
 

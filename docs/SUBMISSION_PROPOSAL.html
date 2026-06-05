@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>NHAI Hackathon 7.0 Submission Proposal</title>
+    <style>
+      body {
+        margin: 40px auto;
+        max-width: 900px;
+        color: #17212b;
+        font-family: Arial, sans-serif;
+        line-height: 1.45;
+      }
+      h1 {
+        margin-bottom: 4px;
+        color: #10233a;
+        font-size: 30px;
+      }
+      h2 {
+        margin-top: 26px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid #d8e0e8;
+        color: #1457a8;
+        font-size: 20px;
+      }
+      h3 {
+        margin-top: 18px;
+        color: #10233a;
+        font-size: 16px;
+      }
+      .subtitle {
+        margin-bottom: 22px;
+        color: #647282;
+        font-weight: 700;
+      }
+      .hero {
+        padding: 20px;
+        border-left: 6px solid #f4c542;
+        background: #eef5ff;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0;
+      }
+      th,
+      td {
+        padding: 9px;
+        border: 1px solid #d8e0e8;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #10233a;
+        color: white;
+      }
+      code,
+      pre {
+        font-family: Consolas, monospace;
+      }
+      pre {
+        padding: 14px;
+        border: 1px solid #d8e0e8;
+        border-radius: 6px;
+        background: #f8fafc;
+        white-space: pre-wrap;
+      }
+      ul {
+        padding-left: 22px;
+      }
+      .note {
+        padding: 14px;
+        border: 1px solid #f4c542;
+        background: #fff8df;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>NHAI Offline Facial Recognition and Liveness Detection System</h1>
+    <p class="subtitle">NHAI Innovation Hackathon 7.0 Submission Proposal</p>
+
+    <section class="hero">
+      <strong>Repository:</strong>
+      https://github.com/bhavikdeshmukh/NHAI-Offline-Facial-Recognition-System
+      <br />
+      <strong>Objective:</strong>
+      Offline, lightweight, mobile-ready face verification and liveness detection for Datalake 3.0 field operations in zero-network zones.
+    </section>
+
+    <h2>Challenge Alignment</h2>
+    <p>
+      This submission addresses the official objective: a highly accurate, lightweight, and entirely offline facial recognition and liveness detection system that can integrate into the existing Datalake 3.0 app. The prototype demonstrates the complete field workflow, while the documentation maps the browser implementation to a React Native production architecture.
+    </p>
+
+    <h2>Current Prototype Deliverables</h2>
+    <ul>
+      <li>Camera-based officer enrollment with center, left, and right samples.</li>
+      <li>Blur and lighting quality gates before saving a local template.</li>
+      <li>Offline verification with immediate App Unlocked or Face ID Not Matched result.</li>
+      <li>Local storage simulating on-device template storage.</li>
+      <li>Pending audit queue and Vercel /api/sync simulation for Datalake 3.0 recovery.</li>
+      <li>CLAHE lighting evidence, real-image face crop evidence, benchmark CSV files, and technical documentation.</li>
+    </ul>
+
+    <h2>Production Architecture</h2>
+    <pre>React Native Camera
+-> Frame Processor
+-> CLAHE Lighting Normalization
+-> Face Detection and 112x112 Face Crop
+-> Passive Liveness Check
+-> Active Liveness Challenge
+-> MobileFaceNet INT8 Embedding
+-> Cosine Similarity Decision
+-> Encrypted SQLite Template Store
+-> Offline Audit Queue
+-> Datalake 3.0 / AWS Sync and Purge</pre>
+
+    <h2>Model Strategy</h2>
+    <table>
+      <tr><th>Component</th><th>Planned Model or Method</th><th>Purpose</th></tr>
+      <tr><td>Face detection</td><td>BlazeFace or SCRFD-lite</td><td>Fast mobile face localization</td></tr>
+      <tr><td>Preprocessing</td><td>CLAHE</td><td>Robustness under sunlight, shadows, low light, and blur</td></tr>
+      <tr><td>Embedding</td><td>MobileFaceNet INT8</td><td>Lightweight face vector generation under model-size budget</td></tr>
+      <tr><td>Matching</td><td>Cosine similarity</td><td>Fully offline template comparison</td></tr>
+      <tr><td>Passive liveness</td><td>FASNet/Silent-Face style model</td><td>Detect photo, print, and screen replay attacks</td></tr>
+      <tr><td>Active liveness</td><td>Blink, head turn, or smile prompt</td><td>Confirm live human participation</td></tr>
+      <tr><td>Explainability</td><td>Grad-CAM style evidence</td><td>Improve reviewer trust in model decisions</td></tr>
+    </table>
+
+    <h2>Evaluation Criteria Mapping</h2>
+    <h3>Innovation Level: 30 Marks</h3>
+    <ul>
+      <li>Edge AI design instead of server-dependent authentication.</li>
+      <li>MobileFaceNet INT8 target under the approximate 20 MB model footprint.</li>
+      <li>CLAHE preprocessing for Indian outdoor field conditions.</li>
+      <li>Passive plus active liveness design, stronger than blink-only liveness.</li>
+      <li>Real-image preprocessing and face-crop evidence included in the repository.</li>
+    </ul>
+
+    <h3>Feasibility: 30 Marks</h3>
+    <ul>
+      <li>Prototype runs immediately in browser and works on HTTPS-enabled phone browsers.</li>
+      <li>Workflow maps cleanly to React Native camera, model, storage, and sync modules.</li>
+      <li>Offline cosine matching and local template storage are already demonstrated.</li>
+      <li>Target runtime is under 1 second on mid-range devices.</li>
+    </ul>
+
+    <h3>Scalability and Sustainability: 20 Marks</h3>
+    <ul>
+      <li>Offline queue stores audit events when network is unavailable.</li>
+      <li>Sync simulation shows records being pushed after connectivity returns.</li>
+      <li>Production design includes purge after successful sync.</li>
+      <li>Multi-sample enrollment and CLAHE improve robustness across pose and lighting variation.</li>
+    </ul>
+
+    <h3>Presentation and Documentation: 20 Marks</h3>
+    <ul>
+      <li>Clean README, setup guide, architecture guide, model card, benchmark document, and final evaluation map.</li>
+      <li>Benchmark CSV files and evidence assets avoid unsupported claims.</li>
+      <li>Demo video shows the user journey from enrollment to unlock and sync.</li>
+    </ul>
+
+    <h2>Honest Prototype Boundary</h2>
+    <p class="note">
+      The current web demo uses a deterministic temporary embedding to prove the offline enrollment, vector comparison, lock/unlock decision, and sync workflow. It does not claim final MobileFaceNet recognition accuracy. The final recognition layer is designed to replace this temporary embedding with a quantized MobileFaceNet TFLite model in the React Native implementation.
+    </p>
+
+    <h2>Recommended Demo Flow</h2>
+    <ol>
+      <li>Show the GitHub README and architecture.</li>
+      <li>Open the hosted demo link.</li>
+      <li>Enroll with center, left, and right samples.</li>
+      <li>Return to verification and show the locked state.</li>
+      <li>Tap Analyze and Unlock.</li>
+      <li>Show App Unlocked and match latency under one second.</li>
+      <li>Open Sync Details and simulate online sync.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>
+      The submission presents a practical offline-first identity verification system for NHAI field conditions. It emphasizes lightweight edge AI, liveness protection, local auditability, robust lighting handling, and a clear integration path into Datalake 3.0.
+    </p>
+  </body>
+</html>

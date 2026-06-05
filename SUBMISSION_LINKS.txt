@@ -1,0 +1,27 @@
+NHAI Hackathon 7.0 Submission Links
+
+Project:
+NHAI Offline Facial Recognition and Liveness Detection System
+
+GitHub Repository:
+https://github.com/bhavikdeshmukh/NHAI-Offline-Facial-Recognition-System
+
+Main Files for Evaluators:
+- README.md
+- docs/SUBMISSION_PROPOSAL.pdf
+- docs/FINAL_EVALUATION_MAP.md
+- docs/ARCHITECTURE.md
+- docs/SETUP.md
+- docs/MODEL_CARD.md
+- docs/BENCHMARKS.md
+- index.html
+
+Suggested Review Flow:
+1. Read README.md.
+2. Open docs/SUBMISSION_PROPOSAL.pdf.
+3. Open the hosted demo or index.html.
+4. Watch the demo video included in the submission zip.
+5. Check docs/FINAL_EVALUATION_MAP.md for scoring alignment.
+
+Important Note:
+The browser demo proves the offline enrollment, local vector comparison, lock/unlock decision, and sync queue workflow. The final native React Native implementation path replaces the temporary browser embedding with MobileFaceNet INT8 and adds the documented passive plus active liveness pipeline.
