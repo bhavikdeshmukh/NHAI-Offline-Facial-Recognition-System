@@ -105,24 +105,24 @@ CLAHE preprocessing improves local contrast before recognition, making the face 
 
 ```txt
 NHAI-Offline-Facial-Recognition-System/
-├── models/
-│   └── .gitkeep
-├── python-scripts/
-│   └── .gitkeep
-├── src/
-│   ├── components/
-│   ├── screens/
-│   ├── services/
-│   └── utils/
-├── docs/
-│   ├── MASTER_PLAN.md
-│   ├── ARCHITECTURE.md
-│   └── SETUP.md
-├── assets/
-│   ├── architecture-diagram.png
-│   └── demo.gif
-├── .gitignore
-└── README.md
+|-- models/
+|   `-- .gitkeep
+|-- python-scripts/
+|   `-- .gitkeep
+|-- src/
+|   |-- components/
+|   |-- screens/
+|   |-- services/
+|   `-- utils/
+|-- docs/
+|   |-- MASTER_PLAN.md
+|   |-- ARCHITECTURE.md
+|   `-- SETUP.md
+|-- assets/
+|   |-- architecture-diagram.png
+|   `-- demo.gif
+|-- .gitignore
+`-- README.md
 ```
 
 ## Planned Screens
@@ -138,8 +138,8 @@ NHAI-Offline-Facial-Recognition-System/
 
 - [x] Initialize repository structure
 - [x] Add project README
-- [ ] Add master implementation plan
-- [ ] Add architecture documentation
+- [x] Add master implementation plan
+- [x] Add architecture documentation
 - [ ] Build mobile UI prototype
 - [ ] Implement face detection pipeline
 - [ ] Add CLAHE preprocessing
