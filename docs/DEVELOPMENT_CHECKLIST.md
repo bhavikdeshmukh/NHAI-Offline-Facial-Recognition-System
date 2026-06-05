@@ -46,7 +46,7 @@ Important corrections:
 - [ ] Add Python requirements
 - [x] Add CLAHE preprocessing script
 - [x] Add benchmark scaffold
-- [ ] Add sample image folder
+- [x] Add sample image folder
 - [ ] Add model download/source notes
 - [ ] Add MobileFaceNet conversion script
 - [ ] Add FASNet conversion script
@@ -55,10 +55,10 @@ Important corrections:
 
 ## Phase C: CLAHE Evidence
 
-- [ ] Collect 5 sample face images in different lighting
-- [ ] Run CLAHE before/after script
-- [ ] Save before/after images under `assets/evidence/clahe/`
-- [ ] Measure preprocessing time
+- [x] Generate 5 synthetic lighting samples
+- [x] Run CLAHE before/after script
+- [x] Save before/after images under `assets/evidence/clahe/`
+- [x] Measure preprocessing time on synthetic samples
 - [ ] Decide final CLAHE parameters
 - [ ] Add evidence to final docs/presentation
 
@@ -117,4 +117,3 @@ Important corrections:
 ## Next Immediate Task
 
 Start with CLAHE because it is small, real, and unique to our project. It gives us evidence quickly before the heavy model work.
-

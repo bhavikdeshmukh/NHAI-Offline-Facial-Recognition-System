@@ -111,6 +111,8 @@ CLAHE preprocessing improves local contrast before recognition, making the face 
 | Liveness | Passive plus active anti-spoofing |
 | Storage | Encrypted local database |
 
+Measured development results are tracked in [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md). Prototype numbers stay there until they are validated on real mobile hardware.
+
 ## Repository Structure
 
 ```txt
@@ -118,7 +120,10 @@ NHAI-Offline-Facial-Recognition-System/
 |-- models/
 |   `-- .gitkeep
 |-- python-scripts/
-|   `-- .gitkeep
+|   |-- README.md
+|   |-- benchmark_pipeline.py
+|   |-- clahe_preprocess.py
+|   `-- create_sample_images.py
 |-- src/
 |   |-- components/
 |   |-- screens/
@@ -129,10 +134,17 @@ NHAI-Offline-Facial-Recognition-System/
 |-- docs/
 |   |-- MASTER_PLAN.md
 |   |-- ARCHITECTURE.md
+|   |-- BENCHMARKS.md
+|   |-- DEVELOPMENT_CHECKLIST.md
 |   `-- SETUP.md
 |-- assets/
+|   |-- evidence/
 |   |-- architecture-diagram.png
 |   `-- demo.gif
+|-- benchmarks/
+|   `-- results/
+|-- samples/
+|   `-- README.md
 |-- .gitignore
 |-- index.html
 `-- README.md
@@ -154,9 +166,9 @@ NHAI-Offline-Facial-Recognition-System/
 - [x] Add master implementation plan
 - [x] Add architecture documentation
 - [x] Build browser demo prototype
+- [x] Add CLAHE preprocessing evidence workflow
 - [ ] Build mobile UI prototype
 - [ ] Implement face detection pipeline
-- [ ] Add CLAHE preprocessing
 - [ ] Integrate face embedding model
 - [ ] Add passive liveness detection
 - [ ] Add active liveness challenge
