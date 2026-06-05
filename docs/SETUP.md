@@ -38,6 +38,8 @@ For phone camera testing, open the GitHub Pages HTTPS URL on the phone. Browser 
 
 Vercel can also host the same static prototype. Import the GitHub repository in Vercel and keep the default static settings. The included `vercel.json` sets a camera permission policy header for the demo.
 
+The Vercel deployment includes `/api/sync`, a small serverless endpoint used by the Sync Queue demo.
+
 Current phone-demo flow:
 
 1. Open Enroll.

@@ -62,6 +62,7 @@ What we show:
 
 - Pending sync queue stores offline verification events.
 - Simulated online sync converts pending events into synced events for demo.
+- On Vercel, `/api/sync` acts as a small backend endpoint for sync simulation.
 - Local-only template avoids dependency on cloud authentication.
 - CLAHE and quality gates address lighting diversity.
 - Multi-sample enrollment improves robustness across pose variation.
@@ -99,4 +100,3 @@ Recommended demo video order:
 7. Tap simulated online sync.
 8. Show evidence folders and benchmark CSVs.
 9. State clearly that final recognition target is MobileFaceNet INT8.
-

@@ -37,6 +37,8 @@ Open `index.html` in a browser to view the current offline verification prototyp
 
 The same static demo can be deployed on GitHub Pages or Vercel. No backend server is required for the presentation prototype.
 
+On Vercel, the demo also exposes a small `/api/sync` serverless endpoint to simulate pushing pending offline events to a backend.
+
 ## System Architecture
 
 ```mermaid
@@ -182,6 +184,7 @@ NHAI-Offline-Facial-Recognition-System/
 - [x] Add architecture documentation
 - [x] Build browser demo prototype
 - [x] Add CLAHE preprocessing evidence workflow
+- [x] Add Vercel backend sync simulation
 - [ ] Build mobile UI prototype
 - [ ] Implement face detection pipeline
 - [ ] Integrate face embedding model

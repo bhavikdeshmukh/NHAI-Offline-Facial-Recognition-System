@@ -486,6 +486,7 @@ input {
 .camera-stage.camera-on .face-frame {
   z-index: 2;
   background: transparent;
+  backdrop-filter: none;
 }
 
 .camera-stage.camera-on .capture-hint {

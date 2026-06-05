@@ -77,12 +77,32 @@ function setSyncQueue(rows) {
   localStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(rows));
 }
 
-function simulateOnlineSync() {
+async function simulateOnlineSync() {
   const queue = getSyncQueue();
+  let backendSyncedAt = new Date().toISOString();
+
+  try {
+    const pendingEvents = queue.filter((row) => row.status !== "Synced");
+    const response = await fetch("/api/sync", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ events: pendingEvents }),
+    });
+    if (response.ok) {
+      const payload = await response.json();
+      backendSyncedAt = payload.syncedAt || backendSyncedAt;
+    }
+  } catch (error) {
+    console.info("Backend sync unavailable; using local fallback.", error);
+  }
+
   const syncedQueue = queue.map((row) => ({
     ...row,
     status: "Synced",
     syncedAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    backendSyncedAt,
   }));
   setSyncQueue(syncedQueue);
   renderSyncQueue();
@@ -468,8 +488,8 @@ document.querySelector("#clear-enrollment").addEventListener("click", () => {
   refreshUiState();
 });
 
-document.querySelector("#sync-now").addEventListener("click", () => {
-  simulateOnlineSync();
+document.querySelector("#sync-now").addEventListener("click", async () => {
+  await simulateOnlineSync();
 });
 
 refreshUiState();
