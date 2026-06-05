@@ -117,6 +117,8 @@ Current evidence includes synthetic lighting samples and consented real-image CL
 
 The first face-crop baseline is also available under `assets/evidence/face_detection_real/`; it is a temporary OpenCV desktop baseline before the final BlazeFace/SCRFD-lite mobile detector.
 
+The first embedding baseline uses a temporary deterministic 128-number vector only to validate the offline cosine-similarity flow. It is not real recognition accuracy and will be replaced by MobileFaceNet INT8 for final recognition.
+
 ## Repository Structure
 
 ```txt

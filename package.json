@@ -1,0 +1,9 @@
+{
+  "name": "nhai-offline-facial-recognition-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:cosine": "node src/utils/cosineSimilarity.test.mjs"
+  }
+}

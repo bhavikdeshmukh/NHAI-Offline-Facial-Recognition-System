@@ -75,10 +75,15 @@ Important corrections:
 
 ## Phase E: Face Recognition
 
+- [x] Add cosine similarity matching utility
+- [x] Add cosine similarity tests
+- [x] Add temporary 128-d embedding baseline
+- [x] Run temporary embedding match on real face crops
+- [x] Document that temporary embeddings are not real recognition accuracy
 - [ ] Choose MobileFaceNet source and license
 - [ ] Export/convert model to mobile format
 - [ ] Verify embedding shape
-- [ ] Implement cosine similarity
+- [x] Implement cosine similarity
 - [ ] Test same-person and different-person pairs
 - [ ] Quantize to INT8
 - [ ] Compare FP32 vs INT8 quality and speed

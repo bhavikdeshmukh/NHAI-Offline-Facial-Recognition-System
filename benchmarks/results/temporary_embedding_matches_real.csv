@@ -1,0 +1,16 @@
+sample_a,sample_b,score,is_match,threshold
+real_face_01_crop_112,real_face_01_crop_112_clahe,0.992667,True,0.9
+real_face_01_crop_112,real_face_02_crop_112,0.844339,False,0.9
+real_face_01_crop_112,real_face_02_crop_112_clahe,0.84743,False,0.9
+real_face_01_crop_112,real_face_03_crop_112,0.87105,False,0.9
+real_face_01_crop_112,real_face_03_crop_112_clahe,0.883481,False,0.9
+real_face_01_crop_112_clahe,real_face_02_crop_112,0.85522,False,0.9
+real_face_01_crop_112_clahe,real_face_02_crop_112_clahe,0.859688,False,0.9
+real_face_01_crop_112_clahe,real_face_03_crop_112,0.880139,False,0.9
+real_face_01_crop_112_clahe,real_face_03_crop_112_clahe,0.89935,False,0.9
+real_face_02_crop_112,real_face_02_crop_112_clahe,0.993961,True,0.9
+real_face_02_crop_112,real_face_03_crop_112,0.929932,True,0.9
+real_face_02_crop_112,real_face_03_crop_112_clahe,0.923965,True,0.9
+real_face_02_crop_112_clahe,real_face_03_crop_112,0.924319,True,0.9
+real_face_02_crop_112_clahe,real_face_03_crop_112_clahe,0.921797,True,0.9
+real_face_03_crop_112,real_face_03_crop_112_clahe,0.990692,True,0.9

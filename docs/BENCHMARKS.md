@@ -66,3 +66,36 @@ Pending detector work:
 - BlazeFace/SCRFD-lite model source and license
 - Mobile detector size and latency
 - Failure cases for side pose, glasses, backlight, blur, and multiple faces
+
+### Temporary Embedding Baseline
+
+Initial embedding test:
+
+- Input: 112x112 real face crops from `assets/evidence/face_detection_real/`
+- Method: temporary deterministic 128-number image-statistics vector
+- This is not MobileFaceNet and should not be presented as AI recognition accuracy.
+- Purpose: validate offline enrollment/verification math and cosine similarity flow.
+
+Output files:
+
+- Embeddings CSV: `benchmarks/results/temporary_embeddings_real.csv`
+- Match CSV: `benchmarks/results/temporary_embedding_matches_real.csv`
+
+Measured result:
+
+- 6 crop images processed: 3 normal crops and 3 CLAHE crops
+- Temporary embedding dimension: 128
+- Average temporary embedding time: about 1.12 ms
+- Same-image normal-vs-CLAHE scores were high, which confirms the cosine flow works.
+- Some different-photo scores were also high, which confirms this placeholder is not suitable for real identity verification.
+
+Important limitation:
+
+The temporary embedding baseline validates the plumbing only: crop input, vector generation, cosine similarity, CSV output, and threshold flow. It must be replaced by MobileFaceNet before claiming real face recognition accuracy.
+
+Pending recognition work:
+
+- Choose MobileFaceNet source and license
+- Convert/export to TFLite or ONNX
+- Compare real MobileFaceNet embeddings with cosine similarity
+- Tune real match threshold from data
