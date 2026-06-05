@@ -2,7 +2,7 @@
 
 Offline-first facial recognition and liveness detection system designed for NHAI field operations, zero-network zones, and Datalake 3.0 integration.
 
-![Status](https://img.shields.io/badge/status-in%20development-blue)
+![Status](https://img.shields.io/badge/status-submission%20prototype-blue)
 ![Mode](https://img.shields.io/badge/mode-offline--first-success)
 ![Target](https://img.shields.io/badge/target-Datalake%203.0-orange)
 ![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS-lightgrey)
@@ -168,33 +168,6 @@ NHAI-Offline-Facial-Recognition-System/
 |-- index.html
 `-- README.md
 ```
-
-## Planned Screens
-
-- Enrollment screen
-- Offline verification screen
-- Liveness challenge screen
-- Verification result screen
-- Pending sync queue screen
-- Admin audit summary screen
-
-## Roadmap
-
-- [x] Initialize repository structure
-- [x] Add project README
-- [x] Add master implementation plan
-- [x] Add architecture documentation
-- [x] Build browser demo prototype
-- [x] Add CLAHE preprocessing evidence workflow
-- [x] Add Vercel backend sync simulation
-- [ ] Build mobile UI prototype
-- [ ] Implement face detection pipeline
-- [ ] Integrate face embedding model
-- [ ] Add passive liveness detection
-- [ ] Add active liveness challenge
-- [ ] Add encrypted local storage
-- [ ] Add offline sync queue
-- [ ] Add demo video and screenshots
 
 ## Hackathon Impact
 
