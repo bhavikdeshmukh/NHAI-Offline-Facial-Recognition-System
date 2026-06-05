@@ -40,11 +40,14 @@ Current phone-demo flow:
 
 1. Open Enroll.
 2. Start camera.
-3. Save local enrollment.
-4. Open Verify.
-5. Start camera.
-6. Capture and unlock.
-7. Open Sync Queue to show the locally queued event.
+3. Capture center sample.
+4. Look slightly left and capture left sample.
+5. Look slightly right and capture right sample.
+6. If the frame is blurry or lighting is poor, the app asks you to retake.
+7. Open Verify.
+8. Start camera.
+9. Capture and unlock.
+10. Open Sync Queue to show the locally queued event.
 
 The local enrollment is saved in browser storage on that phone. Clearing browser site data removes it.
 

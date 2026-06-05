@@ -37,15 +37,15 @@
         <section class="metric-list" aria-label="Prototype metrics">
           <div>
             <span>Match latency</span>
-            <strong>482 ms</strong>
+            <strong id="metric-latency">Live</strong>
           </div>
           <div>
-            <span>Liveness score</span>
-            <strong>96.4%</strong>
+            <span>Enrollment</span>
+            <strong id="metric-enrollment">0/3</strong>
           </div>
           <div>
             <span>Model mode</span>
-            <strong>On-device</strong>
+            <strong>Browser</strong>
           </div>
         </section>
       </aside>
@@ -112,7 +112,7 @@
               <input value="Registered mobile device" />
             </label>
             <button class="primary-action" id="start-enroll-camera">Start Camera</button>
-            <button class="secondary-action" id="capture-enrollment">Save Local Enrollment</button>
+            <button class="secondary-action" id="capture-enrollment">Capture Center Sample</button>
             <button class="danger-action" id="clear-enrollment">Clear Local Template</button>
           </div>
 
@@ -121,7 +121,12 @@
             <video class="enroll-feed" id="enroll-camera" autoplay playsinline muted></video>
             <img class="stored-preview" id="stored-preview" alt="Stored enrollment preview" />
             <div class="quality-meter">
-              <span style="width: 88%"></span>
+              <span id="quality-meter-fill" style="width: 0%"></span>
+            </div>
+            <div class="sample-progress" id="sample-progress">
+              <span>Center</span>
+              <span>Left</span>
+              <span>Right</span>
             </div>
             <p id="enroll-status">No local template saved yet.</p>
           </div>

@@ -456,6 +456,7 @@ input {
   display: block;
   height: 100%;
   background: var(--green);
+  transition: width 0.2s ease;
 }
 
 .camera-feed,
@@ -510,6 +511,37 @@ input {
 
 .stored-preview.visible {
   display: block;
+}
+
+.sample-progress {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.sample-progress span {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  background: #f8fafc;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sample-progress span.active {
+  color: #10233a;
+  border-color: var(--yellow);
+  background: var(--yellow);
+}
+
+.sample-progress span.done {
+  color: #fff;
+  border-color: var(--green);
+  background: var(--green);
 }
 
 .challenge-panel,

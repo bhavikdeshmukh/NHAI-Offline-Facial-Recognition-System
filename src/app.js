@@ -16,12 +16,22 @@ const resultTitle = document.querySelector("#result-title");
 const resultMessage = document.querySelector("#result-message");
 const matchScore = document.querySelector("#match-score");
 const templateState = document.querySelector("#template-state");
+const captureEnrollmentButton = document.querySelector("#capture-enrollment");
+const qualityMeterFill = document.querySelector("#quality-meter-fill");
+const sampleProgress = document.querySelectorAll("#sample-progress span");
+const metricEnrollment = document.querySelector("#metric-enrollment");
+const metricLatency = document.querySelector("#metric-latency");
 
 const STORAGE_KEY = "nhai.offlineFaceTemplate.v1";
 const SYNC_QUEUE_KEY = "nhai.pendingSyncQueue.v1";
 const MATCH_THRESHOLD = 0.9;
+const MIN_SHARPNESS = 0.026;
+const MIN_BRIGHTNESS = 0.18;
+const MAX_BRIGHTNESS = 0.88;
+const ENROLLMENT_POSES = ["Center", "Left", "Right"];
 
 let cameraStream = null;
+let enrollmentSamples = [];
 
 const screenTitles = {
   verify: "Offline Verification",
@@ -55,6 +65,7 @@ function setStoredTemplate(template) {
 
 function clearStoredTemplate() {
   localStorage.removeItem(STORAGE_KEY);
+  enrollmentSamples = [];
 }
 
 function getSyncQueue() {
@@ -119,6 +130,60 @@ function captureFrame(videoElement, size = 112) {
   return {
     imageData: context.getImageData(0, 0, size, size),
     preview: canvas.toDataURL("image/jpeg", 0.75),
+  };
+}
+
+function evaluateFrameQuality(imageData) {
+  const { data, width, height } = imageData;
+  const grayscale = new Float32Array(width * height);
+  let brightness = 0;
+
+  for (let index = 0; index < grayscale.length; index += 1) {
+    const pixelIndex = index * 4;
+    const value =
+      (0.299 * data[pixelIndex] + 0.587 * data[pixelIndex + 1] + 0.114 * data[pixelIndex + 2]) /
+      255;
+    grayscale[index] = value;
+    brightness += value;
+  }
+
+  brightness /= grayscale.length;
+
+  let edgeEnergy = 0;
+  let count = 0;
+  for (let y = 1; y < height - 1; y += 1) {
+    for (let x = 1; x < width - 1; x += 1) {
+      const center = grayscale[y * width + x] * 4;
+      const neighbors =
+        grayscale[y * width + x - 1] +
+        grayscale[y * width + x + 1] +
+        grayscale[(y - 1) * width + x] +
+        grayscale[(y + 1) * width + x];
+      edgeEnergy += Math.abs(center - neighbors);
+      count += 1;
+    }
+  }
+
+  const sharpness = edgeEnergy / count;
+  const score = Math.max(
+    0,
+    Math.min(
+      100,
+      Math.round(
+        (sharpness / MIN_SHARPNESS) * 55 +
+          (1 - Math.abs(brightness - 0.52) / 0.52) * 45,
+      ),
+    ),
+  );
+
+  return {
+    brightness,
+    sharpness,
+    score,
+    isGood:
+      sharpness >= MIN_SHARPNESS &&
+      brightness >= MIN_BRIGHTNESS &&
+      brightness <= MAX_BRIGHTNESS,
   };
 }
 
@@ -188,20 +253,71 @@ function calculateCosineSimilarity(vectorA, vectorB) {
   return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
+function averageEmbeddings(embeddings) {
+  const length = embeddings[0].length;
+  const average = Array.from({ length }, () => 0);
+  embeddings.forEach((embedding) => {
+    embedding.forEach((value, index) => {
+      average[index] += value;
+    });
+  });
+  return normalizeVector(average.map((value) => value / embeddings.length));
+}
+
+function updateEnrollmentProgress() {
+  sampleProgress.forEach((item, index) => {
+    item.classList.toggle("done", index < enrollmentSamples.length);
+    item.classList.toggle("active", index === enrollmentSamples.length);
+  });
+
+  const nextPose = ENROLLMENT_POSES[enrollmentSamples.length] || "Complete";
+  captureEnrollmentButton.textContent =
+    enrollmentSamples.length >= ENROLLMENT_POSES.length
+      ? "Enrollment Complete"
+      : `Capture ${nextPose} Sample`;
+  metricEnrollment.textContent = `${Math.min(enrollmentSamples.length, 3)}/3`;
+}
+
 async function enrollCurrentFace() {
   await startCamera(enrollCamera);
   const capture = captureFrame(enrollCamera);
+  const quality = evaluateFrameQuality(capture.imageData);
+  qualityMeterFill.style.width = `${quality.score}%`;
+
+  if (!quality.isGood) {
+    const reason =
+      quality.sharpness < MIN_SHARPNESS
+        ? "Frame too blurry. Hold phone steady and retake."
+        : "Lighting is not balanced. Face a softer light source.";
+    enrollStatus.textContent = `${reason} Sharpness ${quality.sharpness.toFixed(3)}, brightness ${quality.brightness.toFixed(2)}.`;
+    return;
+  }
+
   const embedding = createTemporaryEmbedding(capture.imageData);
+  const pose = ENROLLMENT_POSES[enrollmentSamples.length];
+  enrollmentSamples.push({
+    pose,
+    embedding,
+    preview: capture.preview,
+    quality,
+  });
+
+  if (enrollmentSamples.length < ENROLLMENT_POSES.length) {
+    enrollStatus.textContent = `${pose} sample accepted. Now look ${ENROLLMENT_POSES[enrollmentSamples.length].toLowerCase()} and capture again.`;
+    updateEnrollmentProgress();
+    return;
+  }
 
   setStoredTemplate({
     officerId: "NHAI-FIELD-2048",
-    embedding,
-    preview: capture.preview,
+    embedding: averageEmbeddings(enrollmentSamples.map((sample) => sample.embedding)),
+    samples: enrollmentSamples,
+    preview: enrollmentSamples[0].preview,
     createdAt: new Date().toISOString(),
-    method: "temporary-browser-embedding",
+    method: "temporary-browser-embedding-3-sample-average",
   });
 
-  enrollStatus.textContent = "Local enrollment saved in this browser cache.";
+  enrollStatus.textContent = "3-sample local enrollment saved in this browser cache.";
   refreshUiState();
 }
 
@@ -216,6 +332,15 @@ async function verifyCurrentFace() {
   await startCamera(verifyCamera);
   const start = performance.now();
   const capture = captureFrame(verifyCamera);
+  const quality = evaluateFrameQuality(capture.imageData);
+  if (!quality.isGood) {
+    verifyStatus.textContent =
+      quality.sharpness < MIN_SHARPNESS
+        ? "Verification frame is blurry. Hold steady and retake."
+        : "Verification lighting is poor. Move to softer light and retake.";
+    return;
+  }
+
   const liveEmbedding = createTemporaryEmbedding(capture.imageData);
   const score = calculateCosineSimilarity(liveEmbedding, template.embedding);
   const elapsedMs = Math.round(performance.now() - start);
@@ -235,6 +360,7 @@ async function verifyCurrentFace() {
     ? `Temporary local match passed in ${elapsedMs} ms. Event saved to pending sync queue.`
     : `Temporary local match score was below threshold. Try better lighting and face position.`;
   matchScore.textContent = `${Math.round(score * 100)}%`;
+  metricLatency.textContent = `${elapsedMs} ms`;
   templateState.textContent = "Saved";
   verifyStatus.textContent = isMatch ? "Unlocked using local browser template." : "Rejected by local match threshold.";
   refreshUiState();
@@ -266,16 +392,19 @@ function renderSyncQueue() {
 function refreshUiState() {
   const template = getStoredTemplate();
   if (template) {
-    enrollStatus.textContent = `Template saved for ${template.officerId}. Stored only on this browser.`;
+    enrollStatus.textContent = `3-sample template saved for ${template.officerId}. Stored only on this browser.`;
     storedPreview.src = template.preview;
     storedPreview.classList.add("visible");
     templateState.textContent = "Saved";
+    metricEnrollment.textContent = `${template.samples?.length || 1}/3`;
   } else {
     storedPreview.removeAttribute("src");
     storedPreview.classList.remove("visible");
     templateState.textContent = "Missing";
+    metricEnrollment.textContent = `${enrollmentSamples.length}/3`;
   }
 
+  updateEnrollmentProgress();
   renderSyncQueue();
 }
 

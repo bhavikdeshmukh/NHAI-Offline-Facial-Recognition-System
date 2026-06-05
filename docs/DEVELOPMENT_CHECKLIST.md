@@ -105,6 +105,8 @@ Important corrections:
 - [x] Add browser camera capture prototype
 - [x] Add browser local enrollment storage
 - [x] Add browser offline unlock flow
+- [x] Add 3-sample browser enrollment flow
+- [x] Add blur and lighting quality gate
 - [ ] Add native mobile camera capture screen
 - [ ] Add native mobile enrollment screen
 - [ ] Add liveness challenge screen
